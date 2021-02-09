@@ -5,7 +5,47 @@ let book = {
   status: true
 }
 
-let myLibrary = []
+const table = document.querySelector('.books')
+
+let myLibrary = [
+  {
+    title: "Inferno",
+    author: "Dan Brown",
+    pages: "200",
+    status: true
+  },
+  {
+  title: "Inferno",
+  author: "Dan Brown",
+  pages: "200",
+  status: true
+},{
+  title: "Inferno",
+  author: "Dan Brown",
+  pages: "200",
+  status: true
+},{
+  title: "Inferno",
+  author: "Dan Brown",
+  pages: "200",
+  status: true
+},{
+  title: "Inferno",
+  author: "Dan Brown",
+  pages: "200",
+  status: true
+},{
+  title: "Inferno",
+  author: "Dan Brown",
+  pages: "200",
+  status: true
+},{
+  title: "Inferno",
+  author: "Dan Brown",
+  pages: "200",
+  status: true
+}
+]
 function Book(title, author, pages, status) {
   this.title = title
   this.author = author
@@ -25,9 +65,24 @@ function addBookToLibrary() {
 
 function displayBooks(){
   for(let i = 0; i < myLibrary.length; i++){
-    myLibrary[i].title;
-    myLibrary[i].author;
-    myLibrary[i].pages;
-    myLibrary[i].status;
+    const row = document.createElement('tr')
+
+    const title = document.createElement('td');
+    title.textContent = myLibrary[i].title;
+    row.appendChild(title);
+
+    const author = document.createElement('td');
+    author.textContent = myLibrary[i].author;
+    row.appendChild(author);
+
+    const pages = document.createElement('td');
+    pages.textContent = myLibrary[i].pages;
+    row.appendChild(pages);
+
+    const status = document.createElement('td');
+    status.textContent = myLibrary[i].status;
+    row.appendChild(status);
+
+    table.appendChild(row);
   }
 }
