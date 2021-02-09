@@ -4,7 +4,7 @@ let book = {
   pages: "200",
   status: true
 }
-
+const body = document.querySelector('body')
 const table = document.querySelector('.books')
 
 let myLibrary = [
@@ -85,4 +85,46 @@ function displayBooks(){
 
     table.appendChild(row);
   }
+}
+const newBook = document.querySelector('.btn')
+newBook.onclick = () => {
+  const form = document.createElement('form')
+  const labelForTitle = document.createElement('label')
+  labelForTitle.setAttribute('for', 'title')
+  labelForTitle.textContent = 'Title'
+  const titleForBook = document.createElement('input')
+  titleForBook.setAttribute('type', 'text')
+  titleForBook.setAttribute('id', 'title')
+  labelForTitle.appendChild(titleForBook)
+  form.appendChild(labelForTitle)
+
+  const labelForAuthor = document.createElement('label')
+  labelForAuthor.setAttribute('for', 'author')
+  labelForAuthor.textContent = 'Author'
+  const authorForBook = document.createElement('input')
+  authorForBook.setAttribute('type', 'text')
+  authorForBook.setAttribute('id', 'author')
+  labelForAuthor.appendChild(authorForBook)
+  form.appendChild(labelForAuthor)
+  
+  const labelForPages = document.createElement('label')
+  labelForPages.setAttribute('for', 'pages')
+  labelForPages.textContent = 'Number of pages'
+  const pagesForBook = document.createElement('input')
+  pagesForBook.setAttribute('type', 'text')
+  pagesForBook.setAttribute('id', 'pages')
+  labelForPages.appendChild(pagesForBook)
+  form.appendChild(labelForPages)
+
+  const labelForReadStatus = document.createElement('label')
+  labelForReadStatus.setAttribute('for', 'status')
+  labelForReadStatus.textContent = "Click if you have finished the book"
+  const statusForBook = document.createElement('input')
+  statusForBook.setAttribute('type', 'checkbox')
+  statusForBook.setAttribute('id', 'status')
+  labelForReadStatus.appendChild(statusForBook)
+  form.appendChild(labelForReadStatus)
+  
+  body.appendChild(form)
+
 }
