@@ -53,11 +53,11 @@ function Book(title, author, pages, status) {
   this.status = status
 }
 
-function addBookToLibrary() {
-  title = prompt("What is the title of the new book?")
-  author = prompt("Who is the author of the book?")
-  pages = prompt("How many pages do the new book have?")
-  status = confirm("Did you read the book until the last page?")
+function addBookToLibrary(title, author, pages, status) {
+  // title = prompt("What is the title of the new book?")
+  // author = prompt("Who is the author of the book?")
+  // pages = prompt("How many pages do the new book have?")
+  // status = confirm("Did you read the book until the last page?")
   myLibrary.push(new Book(title, author, pages, status));
 }
 
@@ -97,7 +97,7 @@ newBook.onclick = () => {
   titleForBook.setAttribute('id', 'title')
   labelForTitle.appendChild(titleForBook)
   form.appendChild(labelForTitle)
-
+  
   const labelForAuthor = document.createElement('label')
   labelForAuthor.setAttribute('for', 'author')
   labelForAuthor.textContent = 'Author'
@@ -126,8 +126,17 @@ newBook.onclick = () => {
   form.appendChild(labelForReadStatus)
 
   const submit = document.createElement('input')
-  submit.setAttribute('type', 'submit')
+  submit.setAttribute('type', 'button')
   submit.setAttribute('value', "Add to the Library")
   form.appendChild(submit)  
+  submit.onclick = () => {
+    // alert(title);
+
+
+    // alert(titleForBook.value, authorForBook.value, pagesForBook.value, statusForBook.value)
+    addBookToLibrary(titleForBook.value, authorForBook.value, pagesForBook.value, statusForBook.value)
+    displayBooks()
+    body.removeChild(form)
+  }
   body.appendChild(form)
 }
