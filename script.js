@@ -124,7 +124,10 @@ newBook.onclick = () => {
   statusForBook.setAttribute('id', 'status')
   labelForReadStatus.appendChild(statusForBook)
   form.appendChild(labelForReadStatus)
-  
-  body.appendChild(form)
 
+  const submit = document.createElement('input')
+  submit.setAttribute('type', 'submit')
+  submit.setAttribute('value', "Add to the Library")
+  form.appendChild(submit)  
+  body.appendChild(form)
 }
