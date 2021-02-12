@@ -1,3 +1,5 @@
+// const { stat } = require("fs");
+
 const myLibrary = [];
 
 // Book constructor
@@ -17,7 +19,7 @@ function addTableHeading() {
   if (document.querySelector('table')) {
     body.removeChild(document.querySelector('table'));
   }
-  
+
   const table = document.createElement('table');
   const rowHead = document.createElement('tr');
   const colHeadTitle = document.createElement('th');
@@ -32,7 +34,7 @@ function addTableHeading() {
   const colHeadStatus = document.createElement('th');
   colHeadStatus.textContent = 'Read Status';
   rowHead.appendChild(colHeadStatus);
-  
+
   body.appendChild(table);
 }
 
@@ -69,14 +71,22 @@ function addBookRecord(book, index) {
 
   const toggleReadCol = document.createElement('td');
   const toggleReadBtn = document.createElement('button');
-  if (book.status) {
-    toggleReadBtn.textContent = 'UnRead';
-  } else {
-    toggleReadBtn.textContent = 'Read';
+  toggleReadBtn.setAttribute('class', 'set');
+  function check(book) {
+    if (book.status) {
+      toggleReadBtn.textContent = 'UnRead';
+    } else {
+      toggleReadBtn.textContent = 'Read';
+    }
   }
+  check(book);
   toggleReadBtn.onclick = () => {
     book.toggleRead();
-    displayBooks();
+    check(book);
+    addTableHeading();
+    for (let i = 0; i < myLibrary.length; i += 1) {
+      addBookRecord(myLibrary[i], i);
+    }
   };
   toggleReadCol.appendChild(toggleReadBtn);
   row.appendChild(toggleReadCol);
@@ -84,12 +94,14 @@ function addBookRecord(book, index) {
   table.appendChild(row);
 }
 
+
 function displayBooks() {
   addTableHeading();
   for (let i = 0; i < myLibrary.length; i += 1) {
-    addBookRecord(myLibrary[i], i);     
+    addBookRecord(myLibrary[i], i);
   }
 }
+
 
 function addBookToLibrary(title, author, pages, status) {
   myLibrary.push(new Book(title, author, pages, status));
