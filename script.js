@@ -1,7 +1,5 @@
 const myLibrary = [];
 
-const body = document.querySelector('body');
-
 // Book constructor
 function Book(title, author, pages, status) {
   this.title = title;
@@ -14,11 +12,12 @@ function toggle() {
 }
 Book.prototype.toggleRead = toggle;
 
-function displayBooks() {
+function addTableHeading() {
+  const body = document.querySelector('body');
   if (document.querySelector('table')) {
     body.removeChild(document.querySelector('table'));
   }
-
+  
   const table = document.createElement('table');
   const rowHead = document.createElement('tr');
   const colHeadTitle = document.createElement('th');
@@ -33,54 +32,62 @@ function displayBooks() {
   const colHeadStatus = document.createElement('th');
   colHeadStatus.textContent = 'Read Status';
   rowHead.appendChild(colHeadStatus);
-
+  
   body.appendChild(table);
+}
 
+function addBookRecord(book, index) {
+  const table = document.querySelector('table');
+  const row = document.createElement('tr');
+
+  const title = document.createElement('td');
+  title.textContent = book.title;
+  row.appendChild(title);
+
+  const author = document.createElement('td');
+  author.textContent = book.author;
+  row.appendChild(author);
+
+  const pages = document.createElement('td');
+  pages.textContent = book.pages;
+  row.appendChild(pages);
+
+  const status = document.createElement('td');
+  status.textContent = book.status;
+  row.appendChild(status);
+
+  const deleteCol = document.createElement('td');
+  const deleteBtn = document.createElement('button');
+  deleteBtn.setAttribute('data-index', index);
+  deleteBtn.textContent = 'Delete';
+  deleteCol.appendChild(deleteBtn);
+  deleteBtn.onclick = (event) => {
+    myLibrary.splice(event.target.dataset.index, 1);
+    table.removeChild(row);
+  };
+  row.appendChild(deleteCol);
+
+  const toggleReadCol = document.createElement('td');
+  const toggleReadBtn = document.createElement('button');
+  if (book.status) {
+    toggleReadBtn.textContent = 'UnRead';
+  } else {
+    toggleReadBtn.textContent = 'Read';
+  }
+  toggleReadBtn.onclick = () => {
+    book.toggleRead();
+    displayBooks();
+  };
+  toggleReadCol.appendChild(toggleReadBtn);
+  row.appendChild(toggleReadCol);
+
+  table.appendChild(row);
+}
+
+function displayBooks() {
+  addTableHeading();
   for (let i = 0; i < myLibrary.length; i += 1) {
-    const row = document.createElement('tr');
-
-    const title = document.createElement('td');
-    title.textContent = myLibrary[i].title;
-    row.appendChild(title);
-
-    const author = document.createElement('td');
-    author.textContent = myLibrary[i].author;
-    row.appendChild(author);
-
-    const pages = document.createElement('td');
-    pages.textContent = myLibrary[i].pages;
-    row.appendChild(pages);
-
-    const status = document.createElement('td');
-    status.textContent = myLibrary[i].status;
-    row.appendChild(status);
-
-    const deleteCol = document.createElement('td');
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('data-index', i);
-    deleteBtn.textContent = 'Delete';
-    deleteCol.appendChild(deleteBtn);
-    deleteBtn.onclick = (event) => {
-      myLibrary.splice(event.target.dataset.index, 1);
-      table.removeChild(row);
-    };
-    row.appendChild(deleteCol);
-
-    const toggleReadCol = document.createElement('td');
-    const toggleReadBtn = document.createElement('button');
-    if (myLibrary[i].status) {
-      toggleReadBtn.textContent = 'UnRead';
-    } else {
-      toggleReadBtn.textContent = 'Read';
-    }
-    toggleReadBtn.onclick = () => {
-      myLibrary[i].toggleRead();
-      displayBooks();
-    };
-    toggleReadCol.appendChild(toggleReadBtn);
-    row.appendChild(toggleReadCol);
-
-    table.appendChild(row);
+    addBookRecord(myLibrary[i], i);     
   }
 }
 
@@ -94,6 +101,7 @@ displayBooks();
 const newBook = document.querySelector('.btn');
 
 newBook.onclick = () => {
+  const body = document.querySelector('body');
   const form = document.createElement('form');
   const labelForTitle = document.createElement('label');
   labelForTitle.setAttribute('for', 'title');
