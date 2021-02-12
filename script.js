@@ -1,54 +1,8 @@
-// const { read } = require("fs")
+let myLibrary = [];
 
-let book = {
-  title: "Inferno",
-  author: "Dan Brown",
-  pages: "200",
-  status: true
-}
-
-let myLibrary = [
-  {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  },
-  {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  }, {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  }, {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  }, {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  }, {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  }, {
-    title: "Inferno",
-    author: "Dan Brown",
-    pages: "200",
-    status: true
-  }
-]
 const body = document.querySelector('body')
-// const table = document.querySelector('.books')
 
+//Book constructor
 function Book(title, author, pages, status) {
   this.title = title
   this.author = author
@@ -56,39 +10,17 @@ function Book(title, author, pages, status) {
   this.status = status
 }
 
-Book.prototype.toggleRead = 
+Book.prototype.toggleRead = function() {
+  console.log("From toggel read");
+  console.log(this);
+  this.status = !this.status;
+};
 
 function addBookToLibrary(title, author, pages, status) {
-  // title = prompt("What is the title of the new book?")
-  // author = prompt("Who is the author of the book?")
-  // pages = prompt("How many pages do the new book have?")
-  // status = confirm("Did you read the book until the last page?")
   myLibrary.push(new Book(title, author, pages, status));
   displayBooks();
-  // books = document.querySelector('.books');
-
-  // const row = document.createElement('tr')
-
-  // const newTitle = document.createElement('td');
-  // newTitle.textContent = title;
-  // row.appendChild(newTitle);
-
-  // const newAuthor = document.createElement('td');
-  // newAuthor.textContent =  author;
-  // row.appendChild(newAuthor);
-
-  // const newPages = document.createElement('td');
-  // newPages.textContent =  pages;
-  // row.appendChild(newPages);
-
-  // const newStatus = document.createElement('td');
-  // newStatus.textContent =  status;
-  // row.appendChild(newStatus);
-
-  // books.appendChild(row);
 }
 
-// addBookToLibrary();
 
 function displayBooks() {
   if (document.querySelector('table')) {
@@ -96,19 +28,19 @@ function displayBooks() {
   }
 
   const table = document.createElement('table');
-  const ro = document.createElement('tr');
-  const t = document.createElement('th');
-  t.textContent = 'Title';
-  ro.appendChild(t);
-  const a = document.createElement('th');
-  a.textContent = 'Author';
-  ro.appendChild(a);
-  const p = document.createElement('th');
-  p.textContent = 'Pages';
-  ro.appendChild(p);
-  const r = document.createElement('th');
-  r.textContent = 'Read Status';
-  ro.appendChild(r);
+  const rowHead = document.createElement('tr');
+  const colHeadTitle = document.createElement('th');
+  colHeadTitle.textContent = 'Title';
+  rowHead.appendChild(colHeadTitle);
+  const colHeadAuthor = document.createElement('th');
+  colHeadAuthor.textContent = 'Author';
+  rowHead.appendChild(colHeadAuthor);
+  const colHeadPages = document.createElement('th');
+  colHeadPages.textContent = 'Pages';
+  rowHead.appendChild(colHeadPages);
+  const colHeadStatus = document.createElement('th');
+  colHeadStatus.textContent = 'Read Status';
+  rowHead.appendChild(colHeadStatus);
 
   body.appendChild(table);
 
@@ -131,30 +63,37 @@ function displayBooks() {
     status.textContent = myLibrary[i].status;
     row.appendChild(status);
 
-    const btn = document.createElement('td');
-    const content = document.createElement('button');
-    content.setAttribute('data-index', i);
-
-    content.textContent = "Delete";
-    btn.appendChild(content)
-
-    const read = document.createElement('td')
-    const readButton = document.createElement('button')
-
-    content.onclick = (event) => {
+    const deleteCol = document.createElement('td');
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('data-index', i);
+    deleteBtn.textContent = "Delete";
+    deleteCol.appendChild(deleteBtn)
+    deleteBtn.onclick = (event) => {
       myLibrary.splice(event.target.dataset.index, 1);
       table.removeChild(row)
     };
+    row.appendChild(deleteCol)
 
-
-    row.appendChild(btn)
+    const toggleReadCol = document.createElement('td')
+    const toggleReadBtn = document.createElement('button')
+    if(myLibrary[i].status){
+      toggleReadBtn.textContent = 'UnRead'
+    }else{
+      toggleReadBtn.textContent = 'Read'
+    }
+    toggleReadBtn.onclick = ()=> {
+      console.log(myLibrary[i]);
+      myLibrary[i].toggleRead();
+      displayBooks();
+    }
+    toggleReadCol.appendChild(toggleReadBtn)
+    row.appendChild(toggleReadCol)
 
     table.appendChild(row);
   }
 }
 
 displayBooks();
-
 
 const newBook = document.querySelector('.btn');
 
