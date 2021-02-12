@@ -1,3 +1,5 @@
+// const { read } = require("fs")
+
 let book = {
   title: "Inferno",
   author: "Dan Brown",
@@ -17,32 +19,32 @@ let myLibrary = [
     author: "Dan Brown",
     pages: "200",
     status: true
-  },{
+  }, {
     title: "Inferno",
-  author: "Dan Brown",
-  pages: "200",
-  status: true
-},{
-  title: "Inferno",
-  author: "Dan Brown",
-  pages: "200",
-  status: true
-},{
-  title: "Inferno",
-  author: "Dan Brown",
-  pages: "200",
-  status: true
-},{
-  title: "Inferno",
-  author: "Dan Brown",
-  pages: "200",
-  status: true
-},{
-  title: "Inferno",
-  author: "Dan Brown",
-  pages: "200",
-  status: true
-}
+    author: "Dan Brown",
+    pages: "200",
+    status: true
+  }, {
+    title: "Inferno",
+    author: "Dan Brown",
+    pages: "200",
+    status: true
+  }, {
+    title: "Inferno",
+    author: "Dan Brown",
+    pages: "200",
+    status: true
+  }, {
+    title: "Inferno",
+    author: "Dan Brown",
+    pages: "200",
+    status: true
+  }, {
+    title: "Inferno",
+    author: "Dan Brown",
+    pages: "200",
+    status: true
+  }
 ]
 const body = document.querySelector('body')
 // const table = document.querySelector('.books')
@@ -53,6 +55,8 @@ function Book(title, author, pages, status) {
   this.pages = pages
   this.status = status
 }
+
+Book.prototype.toggleRead = 
 
 function addBookToLibrary(title, author, pages, status) {
   // title = prompt("What is the title of the new book?")
@@ -86,8 +90,8 @@ function addBookToLibrary(title, author, pages, status) {
 
 // addBookToLibrary();
 
-function displayBooks(){
-  if (document.querySelector('table')){
+function displayBooks() {
+  if (document.querySelector('table')) {
     body.removeChild(document.querySelector('table'));
   }
 
@@ -108,7 +112,7 @@ function displayBooks(){
 
   body.appendChild(table);
 
-  for(let i = 0; i < myLibrary.length; i++){
+  for (let i = 0; i < myLibrary.length; i++) {
     const row = document.createElement('tr')
 
     const title = document.createElement('td');
@@ -134,7 +138,10 @@ function displayBooks(){
     content.textContent = "Delete";
     btn.appendChild(content)
 
-    content.onclick = (event)=> {
+    const read = document.createElement('td')
+    const readButton = document.createElement('button')
+
+    content.onclick = (event) => {
       myLibrary.splice(event.target.dataset.index, 1);
       table.removeChild(row)
     };
@@ -161,7 +168,7 @@ newBook.onclick = () => {
   titleForBook.setAttribute('id', 'title')
   labelForTitle.appendChild(titleForBook)
   form.appendChild(labelForTitle)
-  
+
   const labelForAuthor = document.createElement('label')
   labelForAuthor.setAttribute('for', 'author')
   labelForAuthor.textContent = 'Author'
@@ -170,7 +177,7 @@ newBook.onclick = () => {
   authorForBook.setAttribute('id', 'author')
   labelForAuthor.appendChild(authorForBook)
   form.appendChild(labelForAuthor)
-  
+
   const labelForPages = document.createElement('label')
   labelForPages.setAttribute('for', 'pages')
   labelForPages.textContent = 'Number of pages'
@@ -192,7 +199,7 @@ newBook.onclick = () => {
   const submit = document.createElement('input')
   submit.setAttribute('type', 'button')
   submit.setAttribute('value', "Add to the Library")
-  form.appendChild(submit)  
+  form.appendChild(submit)
   submit.onclick = () => {
     addBookToLibrary(titleForBook.value, authorForBook.value, pagesForBook.value, statusForBook.checked)
     body.removeChild(form)
