@@ -4,7 +4,7 @@ const myLibrary = [];
 
 // Book constructor (factory function)
 function book(title, author, pages, status) {
-  let obj = Object.create(book.proto);
+  const obj = Object.create(book.proto);
   obj.title = title;
   obj.author = author;
   obj.pages = pages;
@@ -15,8 +15,8 @@ function toggle() {
   this.status = !this.status;
 }
 book.proto = {
-  toggleRead: toggle
-}
+  toggleRead: toggle,
+};
 
 function addTableHeading() {
   const body = document.querySelector('body');
