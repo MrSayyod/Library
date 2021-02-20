@@ -2,17 +2,21 @@
 
 const myLibrary = [];
 
-// Book constructor
-function Book(title, author, pages, status) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.status = status;
+// Book constructor (factory function)
+function book(title, author, pages, status) {
+  let obj = Object.create(book.proto);
+  obj.title = title;
+  obj.author = author;
+  obj.pages = pages;
+  obj.status = status;
+  return obj;
 }
 function toggle() {
   this.status = !this.status;
 }
-Book.prototype.toggleRead = toggle;
+book.proto = {
+  toggleRead: toggle
+}
 
 function addTableHeading() {
   const body = document.querySelector('body');
@@ -104,7 +108,7 @@ function displayBooks() {
 
 
 function addBookToLibrary(title, author, pages, status) {
-  myLibrary.push(new Book(title, author, pages, status));
+  myLibrary.push(book(title, author, pages, status));
   displayBooks();
 }
 
