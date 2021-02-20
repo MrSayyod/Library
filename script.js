@@ -1,18 +1,38 @@
 // const { stat } = require("fs");
 
+// const { runInContext } = require("vm");
+
 const myLibrary = [];
 
 // Book constructor
+// function Book(title, author, pages, status) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.status = status;
+// }
+
+// Factory function start
 function Book(title, author, pages, status) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.status = status;
+  const newBookObject = Object.create(Book.proto)
+  newBookObject.title = title 
+  newBookObject.author = author 
+  newBookObject.pages = pages 
+  newBookObject.status = status 
+  return newBookObject
 }
+// Factory function end
+
 function toggle() {
   this.status = !this.status;
 }
-Book.prototype.toggleRead = toggle;
+
+// factory function start
+Book.proto = { 
+  toggleRead: toggle
+}
+
+//factory function end
 
 function addTableHeading() {
   const body = document.querySelector('body');
@@ -104,7 +124,9 @@ function displayBooks() {
 
 
 function addBookToLibrary(title, author, pages, status) {
-  myLibrary.push(new Book(title, author, pages, status));
+  // myLibrary.push(new Book(title, author, pages, status)); constructor
+  let createBook = Book(title, author, pages, status) // factory function
+  myLibrary.push(createBook)
   displayBooks();
 }
 
