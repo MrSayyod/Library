@@ -14,12 +14,12 @@ const myLibrary = [];
 
 // Factory function start
 function Book(title, author, pages, status) {
-  const newBookObject = Object.create(Book.proto)
-  newBookObject.title = title 
-  newBookObject.author = author 
-  newBookObject.pages = pages 
-  newBookObject.status = status 
-  return newBookObject
+  const newBookObject = Object.create(Book.proto);
+  newBookObject.title = title;
+  newBookObject.author = author;
+  newBookObject.pages = pages;
+  newBookObject.status = status;
+  return newBookObject;
 }
 // Factory function end
 
@@ -28,11 +28,11 @@ function toggle() {
 }
 
 // factory function start
-Book.proto = { 
-  toggleRead: toggle
-}
+Book.proto = {
+  toggleRead: toggle,
+};
 
-//factory function end
+// factory function end
 
 function addTableHeading() {
   const body = document.querySelector('body');
@@ -125,8 +125,8 @@ function displayBooks() {
 
 function addBookToLibrary(title, author, pages, status) {
   // myLibrary.push(new Book(title, author, pages, status)); constructor
-  let createBook = Book(title, author, pages, status) // factory function
-  myLibrary.push(createBook)
+  const createBook = Book(title, author, pages, status); // factory function
+  myLibrary.push(createBook);
   displayBooks();
 }
 
