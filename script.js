@@ -37,13 +37,13 @@ class Book {
   }
 }
 
-//constructor type
+// constructor type
 // Book.prototype.toggleRead = toggle
 // function toggle() {
 //   this.status = !this.status;
 // }
 
-//constructor
+// constructor
 
 // factory function start
 // Book.proto = {
@@ -129,7 +129,6 @@ function addBookRecord(book, index) {
   table.appendChild(row);
   row.appendChild(toggleReadCol);
   toggleReadCol.appendChild(toggleReadBtn);
-
 }
 
 
