@@ -13,24 +13,42 @@ const myLibrary = [];
 // }
 
 // Factory function start
-function Book(title, author, pages, status) {
-  const newBookObject = Object.create(Book.proto);
-  newBookObject.title = title;
-  newBookObject.author = author;
-  newBookObject.pages = pages;
-  newBookObject.status = status;
-  return newBookObject;
-}
+// function Book(title, author, pages, status) {
+//   const newBookObject = Object.create(Book.proto);
+//   newBookObject.title = title;
+//   newBookObject.author = author;
+//   newBookObject.pages = pages;
+//   newBookObject.status = status;
+//   return newBookObject;
+// }
 // Factory function end
 
-function toggle() {
-  this.status = !this.status;
+// Class
+class Book {
+  constructor(title, author, pages, status) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
+  }
+
+  toggleRead() {
+    this.status = !this.status;
+  }
 }
 
+//constructor type
+// Book.prototype.toggleRead = toggle
+// function toggle() {
+//   this.status = !this.status;
+// }
+
+//constructor
+
 // factory function start
-Book.proto = {
-  toggleRead: toggle,
-};
+// Book.proto = {
+//   toggleRead: toggle,
+// };
 
 // factory function end
 
@@ -108,10 +126,10 @@ function addBookRecord(book, index) {
       addBookRecord(myLibrary[i], i);
     }
   };
-  toggleReadCol.appendChild(toggleReadBtn);
-  row.appendChild(toggleReadCol);
-
   table.appendChild(row);
+  row.appendChild(toggleReadCol);
+  toggleReadCol.appendChild(toggleReadBtn);
+
 }
 
 
@@ -125,7 +143,7 @@ function displayBooks() {
 
 function addBookToLibrary(title, author, pages, status) {
   // myLibrary.push(new Book(title, author, pages, status)); constructor
-  const createBook = Book(title, author, pages, status); // factory function
+  const createBook = new Book(title, author, pages, status); // factory function
   myLibrary.push(createBook);
   displayBooks();
 }
